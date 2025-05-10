@@ -4,27 +4,33 @@ from PyQt5.QtCore import QTimer
 from GUI.gui import Ui_MainWindow
 import sys
 import csv
+import subprocess
+import os
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pandas as pd
 import joblib
-from EHR_system import predict_file, predict_single_record
 
+from EHR_system import predict_file, predict_single_record
+from Database.db_connect import get_connection 
+from email_utils import generate_otp, send_otp_email, last_otp_sent 
 
 class MainApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.generated_otp = None
 
         self.stackedWidget.setCurrentIndex(0)
-        self.progress_val = 0
+        self.signIn_button.clicked.connect(self.signIn)
+        self.resend_code_button.clicked.connect(self.send_OTP)
 
         if self.chart_widget.layout() is None:
             self.chart_widget.setLayout(QtWidgets.QVBoxLayout())
-
+        self.progress_val = 0
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.progress_update)
-        self.timer.start(50)
+        
 
         self.upload_dataset_button.clicked.connect(self.load_csv_to_table)
         self.upload_dataset_button.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.dataset_page))
@@ -38,6 +44,109 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.exit_button.clicked.connect(self.exit)
         self.exit_button_2.clicked.connect(self.exit)
 
+    def signIn(self):
+        username = self.emailaddress.text()
+        password = self.password.text()
+        print(f"username: {username}")
+        if not username or not password:
+            QMessageBox.warning(self, "Input Error", "Username and Password are required.")
+            return
+
+        # Connect to DB and validate credentials
+        conn = get_connection()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                query = "SELECT * FROM Users WHERE email = %s AND password = %s"
+                cursor.execute(query, (username, password))
+                result = cursor.fetchone()
+                cursor.close()
+                conn.close()
+
+                if result:
+                    QMessageBox.information(self, "Login Success", f"Welcome {username}")
+                    self.username = username  # ✅ Set username after validation
+                    print("[DEBUG] User authenticated, sending OTP...")
+                    self.send_OTP()
+                    self.stackedWidget.setCurrentWidget(self.Email_Authentication)
+                else:
+                    QMessageBox.critical(self, "Login Failed", "Incorrect username or password.")
+            except Exception as e:
+                print("[ERROR] Exception during DB login:", str(e))
+                QMessageBox.critical(self, "Database Error", str(e))
+        else:
+            QMessageBox.critical(self, "Connection Error", "Failed to connect to the database.")
+
+    def auto_verify_otp(self):
+        entered_otp = self.OTP_here.text().replace(" ", "").strip()  # Remove spaces if using input mask
+
+        if len(entered_otp) == 6 and entered_otp.isdigit():
+            if str(self.generated_otp) == entered_otp:
+                QMessageBox.information(self, "Verified", "OTP verified successfully!")
+                self.stackedWidget.setCurrentWidget(self.Fingerprint_Authentication)
+            else:
+                QMessageBox.critical(self, "Invalid OTP", "Incorrect OTP. Please try again or click the resend button.")
+                self.OTP_here.clear()
+
+  
+    def send_OTP(self):
+        try:
+            print("[DEBUG] Generating OTP...")
+            self.generated_otp = generate_otp()
+            print(f"[DEBUG] Generated OTP: {self.generated_otp}")
+
+            success = send_otp_email(self.username, self.generated_otp)
+            print(f"[DEBUG] Email send success: {success}")
+
+            if success:
+                QMessageBox.information(self, "OTP Sent", f"A 6-digit OTP has been sent to {self.username}.")
+            else:
+                QMessageBox.critical(self, "Error", "Failed to send OTP. Please try again.")
+        except Exception as e:
+            print("[ERROR] Exception during OTP sending:", str(e))
+            QMessageBox.critical(self, "Email Error", str(e))
+
+
+    def fingerprint_verification(self):
+        try:
+            exe_path = os.path.abspath("fingerprint/capture/CaptureFingerprint/x64/Debug/CaptureFingerprint.exe")
+            match_script = os.path.abspath("fingerprint/match template.py")
+            fingerprint_file = os.path.abspath("fingerprint/fingerprints/")
+
+            # Run the capture executable
+            subprocess.run([exe_path, self.username + "_live"], check=True)
+
+            # Check if the live fingerprint file exists
+            if not os.path.exists(fingerprint_file):
+                raise Exception("Live fingerprint file not found.")
+
+            # Run the matching script
+            result = subprocess.run(
+                [sys.executable, match_script, self.username],
+                capture_output=True, text=True
+            )
+
+            output = result.stdout.strip()
+            print("[DEBUG] Matcher Output:\n", output)
+
+            if "AUTH_SUCCESS" in output:
+                self.fp_message_label.setText("Success", f"User '{self.username}' authenticated successfully.")
+                self.root.destroy()
+                self.subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "result_gui.py")])
+                self.stackedWidget.setCurrentWidget(self.loading_page)
+                self.progress_val = 0
+                self.progress_bar.setValue(0)
+                self.timer.start(50)
+            elif "AUTH_FAIL" in output:
+                self.fp_message_label.setText("Authentication Failed", "Fingerprint does not match.")
+            else:
+                self.fp_message_label.setText("Matcher Error", output)
+            
+
+        except Exception as e:
+            QMessageBox.showerror("Fingerprint Error", str(e))
+       
+    
     def progress_update(self):
         self.progress_val += 1
         self.progress_bar.setValue(self.progress_val)
@@ -45,6 +154,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         if self.progress_val > 100:
             self.timer.stop()
             self.stackedWidget.setCurrentWidget(self.selection_page)
+
 
     def load_csv_to_table(self):
         file_name = r"data\processed_dataset.csv"
@@ -66,6 +176,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.run_prediction()
         except Exception as e:
             print(f"Failed to load file: {e}")
+
 
     def show_svm_model(self):
         df = pd.read_csv(r"data\processed_dataset.csv")

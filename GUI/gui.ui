@@ -25,7 +25,7 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>16</pointsize>
+      <pointsize>21</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -44,8 +44,430 @@
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
+    <widget class="QWidget" name="signIn_page">
+     <widget class="QLabel" name="credentials_label">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>350</y>
+        <width>601</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Sitka Heading</family>
+        <pointsize>24</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+color: rgb(255, 255, 255);
+</string>
+      </property>
+      <property name="text">
+       <string>Enter your credentials</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Username_label">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>450</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS PGothic</family>
+        <pointsize>18</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Username:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="password_label">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>520</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS PGothic</family>
+        <pointsize>18</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Password:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="emailaddress">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>450</y>
+        <width>451</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: white;</string>
+      </property>
+      <property name="placeholderText">
+       <string>Enter your registered email address</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="password">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>520</y>
+        <width>451</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: white;</string>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
+      <property name="placeholderText">
+       <string>Enter your password</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="signIn_button">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>610</y>
+        <width>231</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(46, 173, 236);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>Sign in</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="showPassword_checkbox">
+      <property name="geometry">
+       <rect>
+        <x>850</x>
+        <y>520</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Reference Sans Serif</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Show</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="welcome_message">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>120</y>
+        <width>811</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Palatino Linotype</family>
+        <pointsize>41</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;
+color: white;</string>
+      </property>
+      <property name="text">
+       <string>EHR Insider Threat Detection System</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Email_Authentication">
+     <widget class="QWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>80</y>
+        <width>531</width>
+        <height>581</height>
+       </rect>
+      </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+background:rgb(3, 59, 126);
+background: url(&quot;C:/Users/Dell/Downloads/abstract-textured-backgound (1).jpg&quot;);
+
+background:qlineargradient(spread:reflect, x1:0.562, y1:0, x2:0.552, y2:1, stop:0 rgba(4, 55, 118, 255), stop:1 rgba(117, 86, 172, 255));
+background: qlineargradient(spread:reflect, x1:0.577, y1:0, x2:0.607, y2:1, stop:0.19403 rgba(18, 0, 69, 255), stop:0.830846 rgba(38, 138, 221, 255));</string>
+      </property>
+      <widget class="QLabel" name="code_verification_label">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>90</y>
+         <width>431</width>
+         <height>131</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
+color: white;</string>
+       </property>
+       <property name="text">
+        <string>Enter the 6-Digit Code you received in your Email for Verification</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="OTP_here">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>330</y>
+         <width>331</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Courier New</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
+color: white;
+letter-spacing: 50px; 
+padding: 8px;
+border: 2px solid white;
+border-radius: 7px;</string>
+       </property>
+       <property name="inputMask">
+        <string notr="true">0 0 0 0 0 0</string>
+       </property>
+       <property name="maxLength">
+        <number>11</number>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="resend_code_button">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>450</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Nirmala UI</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+color: white;
+background: transparent;
+}
+QPushButton:hover {
+/* Text color on hover */
+	color: rgb(3, 51, 109);
+}</string>
+       </property>
+       <property name="text">
+        <string>Resend Code</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="otp_label">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>290</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Nirmala UI Semilight</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
+color: white;</string>
+       </property>
+       <property name="text">
+        <string>OTP Code</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Fingerprint_Authentication">
+     <widget class="QLabel" name="fingerprint_authentication">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>170</y>
+        <width>841</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Perpetua</family>
+        <pointsize>27</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;
+color: white;</string>
+      </property>
+      <property name="text">
+       <string>Final Verification Step!
+
+Scan your fingerprint on the scanner.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="fp_message_label">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>470</y>
+        <width>711</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Mongolian Baiti</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;
+color: white;
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="loading_page">
      <widget class="QProgressBar" name="progress_bar">
       <property name="geometry">
@@ -118,181 +540,6 @@ color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="signIn_page">
-     <widget class="QLabel" name="credentials_label">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>160</y>
-        <width>601</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Sitka</family>
-        <pointsize>30</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:transparent;
-color: rgb(255, 255, 255);
-</string>
-      </property>
-      <property name="text">
-       <string>Enter your credentials:</string>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="Username_label">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>320</y>
-        <width>171</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS PGothic</family>
-        <pointsize>21</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:transparent;
-color: rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string>Username:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="password_label">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>410</y>
-        <width>171</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS PGothic</family>
-        <pointsize>21</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:transparent;
-color: rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string>Password:</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="emailaddress">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>320</y>
-        <width>451</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: white;</string>
-      </property>
-      <property name="placeholderText">
-       <string>Enter your registered email address</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="password">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>410</y>
-        <width>451</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: white;</string>
-      </property>
-      <property name="placeholderText">
-       <string>Enter your password</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="signIn_button">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>540</y>
-        <width>231</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Nirmala UI</family>
-        <pointsize>14</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgb(46, 173, 236);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="text">
-       <string>Sign in</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="showPassword_checkbox">
-      <property name="geometry">
-       <rect>
-        <x>850</x>
-        <y>410</y>
-        <width>91</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Reference Sans Serif</family>
-        <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: white;
-background: transparent;</string>
-      </property>
-      <property name="text">
-       <string>Show</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="Email_Authentication"/>
-    <widget class="QWidget" name="Fingerprint_Authentication"/>
     <widget class="QWidget" name="selection_page">
      <widget class="QLabel" name="selection_label">
       <property name="geometry">
@@ -397,10 +644,10 @@ color: rgb(0, 0, 0);</string>
         background: white;
     }
     QScrollBar:vertical {
-        background: rgb(200, 200, 200);
+        background: rgb(173, 173, 173);
     }
     QScrollBar:horizontal {
-        background: rgb(200, 200, 200);
+        background: rgb(173, 173, 173);
     }</string>
       </property>
       <property name="frameShadow">
@@ -499,9 +746,9 @@ color: rgb(0, 0, 0);</string>
      <widget class="QWidget" name="chart_widget" native="true">
       <property name="geometry">
        <rect>
-        <x>870</x>
+        <x>860</x>
         <y>190</y>
-        <width>311</width>
+        <width>321</width>
         <height>361</height>
        </rect>
       </property>
@@ -640,9 +887,9 @@ background: rgb(200, 10, 16);</string>
      <widget class="QLabel" name="chart_label">
       <property name="geometry">
        <rect>
-        <x>870</x>
+        <x>860</x>
         <y>120</y>
-        <width>311</width>
+        <width>321</width>
         <height>51</height>
        </rect>
       </property>
@@ -660,6 +907,9 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>EHR Access Anomaly Visualization</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="dataset_pag_title">
@@ -1114,6 +1364,12 @@ color: rgb(255, 255, 255);</string>
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuEHR_System">
+    <property name="title">
+     <string>EHR Insider Threat Detection SystemSystem</string>
+    </property>
+   </widget>
+   <addaction name="menuEHR_System"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
