@@ -24,6 +24,3 @@ CREATE TABLE Login_Logs (
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE SET NULL
 );
 
-INSERT INTO Users (email, password) values ('ifraahmed817@gmail.com', 'BunyanulMarsoos');
-SELECT * FROM Users;
-
