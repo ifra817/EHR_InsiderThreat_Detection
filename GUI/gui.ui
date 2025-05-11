@@ -267,12 +267,7 @@ color: white;</string>
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-background:rgb(3, 59, 126);
-background: url(&quot;C:/Users/Dell/Downloads/abstract-textured-backgound (1).jpg&quot;);
-
-background:qlineargradient(spread:reflect, x1:0.562, y1:0, x2:0.552, y2:1, stop:0 rgba(4, 55, 118, 255), stop:1 rgba(117, 86, 172, 255));
-background: qlineargradient(spread:reflect, x1:0.577, y1:0, x2:0.607, y2:1, stop:0.19403 rgba(18, 0, 69, 255), stop:0.830846 rgba(38, 138, 221, 255));</string>
+       <string notr="true">background: qlineargradient(spread:reflect, x1:0.577, y1:0, x2:0.607, y2:1, stop:0.19403 rgba(18, 0, 69, 255), stop:0.830846 rgba(38, 138, 221, 255));</string>
       </property>
       <widget class="QLabel" name="code_verification_label">
        <property name="geometry">
@@ -325,7 +320,7 @@ color: white;</string>
        <property name="styleSheet">
         <string notr="true">background: transparent;
 color: white;
-letter-spacing: 50px; 
+letter-spacing: 8px; 
 padding: 8px;
 border: 2px solid white;
 border-radius: 7px;</string>
@@ -343,8 +338,8 @@ border-radius: 7px;</string>
       <widget class="QPushButton" name="resend_code_button">
        <property name="geometry">
         <rect>
-         <x>190</x>
-         <y>450</y>
+         <x>200</x>
+         <y>510</y>
          <width>131</width>
          <height>31</height>
         </rect>
@@ -352,7 +347,7 @@ border-radius: 7px;</string>
        <property name="font">
         <font>
          <family>Nirmala UI</family>
-         <pointsize>12</pointsize>
+         <pointsize>11</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -400,6 +395,37 @@ color: white;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="verify_otp_button">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>410</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background: rgb(49, 190, 255);
+color: white;
+border: 0px;
+border-radius: 2px;
+}
+QPushButton:hover{
+background: rgb(72, 207, 30);
+}</string>
+       </property>
+       <property name="text">
+        <string>Verify</string>
        </property>
       </widget>
      </widget>
@@ -635,18 +661,25 @@ color: rgb(0, 0, 0);</string>
       </property>
       <property name="font">
        <font>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QTableWidget {
         background: white;
+		color: black;
     }
-    QScrollBar:vertical {
+QHeaderView::section {
+    color: black;
+    font-weight: bold;
+    padding: 4px;
+}
+QScrollBar:vertical {
         background: rgb(173, 173, 173);
     }
-    QScrollBar:horizontal {
+QScrollBar:horizontal {
         background: rgb(173, 173, 173);
     }</string>
       </property>
@@ -1366,7 +1399,7 @@ color: rgb(255, 255, 255);</string>
    </property>
    <widget class="QMenu" name="menuEHR_System">
     <property name="title">
-     <string>EHR Insider Threat Detection SystemSystem</string>
+     <string>EHR Insider Threat Detection System</string>
     </property>
    </widget>
    <addaction name="menuEHR_System"/>

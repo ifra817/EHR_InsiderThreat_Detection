@@ -6,11 +6,15 @@ from email.message import EmailMessage
 last_otp_sent = None  
 
 def generate_otp():
-    return random.randint(100000, 999999)  # 6-digit OTP
+    otp=''
+    for i in range(6):
+        otp+= str(random.randint(0,9))
+    print(otp)
+    return otp
 
 def send_otp_email(receiver_email, otp):
-    sender_email = "ehrsystem123@example.com"  # Use a real sender
-    sender_password = "agjxfunioqitctuo"
+    sender_email = "ehrsystem123@gmail.com"  # Use a real sender
+    sender_password = 'agjxfunioqitctuo'
 
     subject = "Your OTP Code for EHR Authentication"
     body = f"Your OTP code is: {otp}"
@@ -24,8 +28,10 @@ def send_otp_email(receiver_email, otp):
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(sender_email, sender_password)
+            print("smtp login successfull")
             server.send_message(message)
         return True
     except Exception as e:
         print(f"Email error: {e}")
         return False
+

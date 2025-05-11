@@ -13,7 +13,7 @@ import joblib
 
 from EHR_system import predict_file, predict_single_record
 from Database.db_connect import get_connection 
-from email_utils import generate_otp, send_otp_email, last_otp_sent 
+from email_utils import generate_otp, send_otp_email
 
 class MainApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -22,7 +22,11 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.generated_otp = None
 
         self.stackedWidget.setCurrentIndex(0)
+        self.showPassword_checkbox.stateChanged.connect(self.toggle_password_visibility)
+
         self.signIn_button.clicked.connect(self.signIn)
+        
+        self.verify_otp_button.clicked.connect(self.verify_otp)
         self.resend_code_button.clicked.connect(self.send_OTP)
 
         if self.chart_widget.layout() is None:
@@ -68,6 +72,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                     self.username = username  # ✅ Set username after validation
                     print("[DEBUG] User authenticated, sending OTP...")
                     self.send_OTP()
+                    
                     self.stackedWidget.setCurrentWidget(self.Email_Authentication)
                 else:
                     QMessageBox.critical(self, "Login Failed", "Incorrect username or password.")
@@ -77,18 +82,30 @@ class MainApp(QMainWindow, Ui_MainWindow):
         else:
             QMessageBox.critical(self, "Connection Error", "Failed to connect to the database.")
 
-    def auto_verify_otp(self):
-        entered_otp = self.OTP_here.text().replace(" ", "").strip()  # Remove spaces if using input mask
+    def toggle_password_visibility(self):
+        if self.showPassword_checkbox.isChecked():
+            self.password.setEchoMode(QtWidgets.QLineEdit.Normal)  # Show password
+        else:
+            self.password.setEchoMode(QtWidgets.QLineEdit.Password)  # Hide password
 
-        if len(entered_otp) == 6 and entered_otp.isdigit():
-            if str(self.generated_otp) == entered_otp:
-                QMessageBox.information(self, "Verified", "OTP verified successfully!")
-                self.stackedWidget.setCurrentWidget(self.Fingerprint_Authentication)
+    def verify_otp(self):
+        try:
+            entered_otp = self.OTP_here.text().replace(" ", "").strip()
+            print(f"[DEBUG] Entered OTP: {entered_otp}")
+            
+            if len(entered_otp) == 6 and entered_otp.isdigit():
+                if str(self.generated_otp) == entered_otp:
+                    QMessageBox.information(self, "Verified", "OTP verified successfully!")
+                    self.stackedWidget.setCurrentWidget(self.Fingerprint_Authentication)
+                else:
+                    QMessageBox.critical(self, "Invalid OTP", "Incorrect OTP. Please try again or click the resend button.")
+                    self.OTP_here.clear()
             else:
-                QMessageBox.critical(self, "Invalid OTP", "Incorrect OTP. Please try again or click the resend button.")
-                self.OTP_here.clear()
+                QMessageBox.warning(self, "Invalid Input", "Please enter a valid 6-digit OTP.")
+        except Exception as e:
+            print("[ERROR] Exception in auto_verify_otp:", str(e))
+            QMessageBox.critical(self, "Error", f"An error occurred: {str(e)}")
 
-  
     def send_OTP(self):
         try:
             print("[DEBUG] Generating OTP...")

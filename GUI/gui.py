@@ -123,8 +123,7 @@ class Ui_MainWindow(object):
         self.widget.setGeometry(QtCore.QRect(140, 80, 531, 581))
         self.widget.setMouseTracking(True)
         self.widget.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.widget.setStyleSheet("\n"
-"background: qlineargradient(spread:reflect, x1:0.577, y1:0, x2:0.607, y2:1, stop:0.19403 rgba(18, 0, 69, 255), stop:0.830846 rgba(38, 138, 221, 255));")
+        self.widget.setStyleSheet("background: qlineargradient(spread:reflect, x1:0.577, y1:0, x2:0.607, y2:1, stop:0.19403 rgba(18, 0, 69, 255), stop:0.830846 rgba(38, 138, 221, 255));")
         self.widget.setObjectName("widget")
         self.code_verification_label = QtWidgets.QLabel(self.widget)
         self.code_verification_label.setGeometry(QtCore.QRect(50, 90, 431, 131))
@@ -149,7 +148,7 @@ class Ui_MainWindow(object):
         self.OTP_here.setFont(font)
         self.OTP_here.setStyleSheet("background: transparent;\n"
 "color: white;\n"
-"letter-spacing: 10px; \n"
+"letter-spacing: 8px; \n"
 "padding: 8px;\n"
 "border: 2px solid white;\n"
 "border-radius: 7px;")
@@ -158,10 +157,10 @@ class Ui_MainWindow(object):
         self.OTP_here.setAlignment(QtCore.Qt.AlignCenter)
         self.OTP_here.setObjectName("OTP_here")
         self.resend_code_button = QtWidgets.QPushButton(self.widget)
-        self.resend_code_button.setGeometry(QtCore.QRect(190, 450, 131, 31))
+        self.resend_code_button.setGeometry(QtCore.QRect(200, 510, 131, 31))
         font = QtGui.QFont()
         font.setFamily("Nirmala UI")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.resend_code_button.setFont(font)
@@ -187,6 +186,23 @@ class Ui_MainWindow(object):
 "color: white;")
         self.otp_label.setAlignment(QtCore.Qt.AlignCenter)
         self.otp_label.setObjectName("otp_label")
+        self.verify_otp_button = QtWidgets.QPushButton(self.widget)
+        self.verify_otp_button.setGeometry(QtCore.QRect(220, 410, 93, 28))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.verify_otp_button.setFont(font)
+        self.verify_otp_button.setStyleSheet("QPushButton{\n"
+"background: rgb(49, 190, 255);\n"
+"color: white;\n"
+"border: 0px;\n"
+"border-radius: 2px;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background: rgb(72, 207, 30);\n"
+"}")
+        self.verify_otp_button.setObjectName("verify_otp_button")
         self.stackedWidget.addWidget(self.Email_Authentication)
         self.Fingerprint_Authentication = QtWidgets.QWidget()
         self.Fingerprint_Authentication.setObjectName("Fingerprint_Authentication")
@@ -295,16 +311,23 @@ class Ui_MainWindow(object):
         self.dataset_table = QtWidgets.QTableWidget(self.dataset_page)
         self.dataset_table.setGeometry(QtCore.QRect(60, 130, 761, 481))
         font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(8)
+        font.setBold(False)
+        font.setWeight(50)
         self.dataset_table.setFont(font)
         self.dataset_table.setStyleSheet("QTableWidget {\n"
 "        background: white;\n"
+"        color: black;\n"
 "    }\n"
-"    QScrollBar:vertical {\n"
+"QHeaderView::section {\n"
+"    color: black;\n"
+"    font-weight: bold;\n"
+"    padding: 4px;\n"
+"}\n"
+"QScrollBar:vertical {\n"
 "        background: rgb(173, 173, 173);\n"
 "    }\n"
-"    QScrollBar:horizontal {\n"
+"QScrollBar:horizontal {\n"
 "        background: rgb(173, 173, 173);\n"
 "    }")
         self.dataset_table.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -637,7 +660,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuEHR_System.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -654,6 +677,7 @@ class Ui_MainWindow(object):
         self.code_verification_label.setText(_translate("MainWindow", "Enter the 6-Digit Code you received in your Email for Verification"))
         self.resend_code_button.setText(_translate("MainWindow", "Resend Code"))
         self.otp_label.setText(_translate("MainWindow", "OTP Code"))
+        self.verify_otp_button.setText(_translate("MainWindow", "Verify"))
         self.fingerprint_authentication.setText(_translate("MainWindow", "Final Verification Step!\n"
 "\n"
 "Scan your fingerprint on the scanner."))
@@ -698,7 +722,7 @@ class Ui_MainWindow(object):
         self.routine_label.setText(_translate("MainWindow", "Routine"))
         self.patient_id_label.setText(_translate("MainWindow", "<html><head/><body><p>Patient_ID (1000-1050)</p></body></html>"))
         self.duration_label.setText(_translate("MainWindow", "<html><head/><body><p>Duration (10-150)</p></body></html>"))
-        self.menuEHR_System.setTitle(_translate("MainWindow", "EHR Insider Threat Detection SystemSystem"))
+        self.menuEHR_System.setTitle(_translate("MainWindow", "EHR Insider Threat Detection System"))
 
 
 if __name__ == "__main__":
