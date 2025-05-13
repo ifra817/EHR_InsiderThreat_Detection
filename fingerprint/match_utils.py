@@ -1,6 +1,6 @@
-import cv2 # yellow line here too
+import cv2 
 import numpy as np
-from skimage.morphology import skeletonize # yellow line here too but here its saying import could not be resolved from soure
+from skimage.morphology import skeletonize #
 from scipy.spatial import distance
 
 

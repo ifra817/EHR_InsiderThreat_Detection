@@ -4,8 +4,7 @@ from PyQt5.QtCore import QTimer
 from GUI.gui import Ui_MainWindow
 import sys
 import csv
-import subprocess
-import os
+
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import pandas as pd
@@ -14,13 +13,14 @@ import joblib
 from EHR_system import predict_file, predict_single_record
 from Database.db_connect import get_connection 
 from email_utils import generate_otp, send_otp_email
+from fingerprint.match_template import match_fingerprint
 
 class MainApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.generated_otp = None
-
+        
         self.stackedWidget.setCurrentIndex(0)
         self.showPassword_checkbox.stateChanged.connect(self.toggle_password_visibility)
 
@@ -29,12 +29,15 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.verify_otp_button.clicked.connect(self.verify_otp)
         self.resend_code_button.clicked.connect(self.send_OTP)
 
+        self.scan_fp_button.clicked.connect(self.fingerprint_verification)
+
         if self.chart_widget.layout() is None:
             self.chart_widget.setLayout(QtWidgets.QVBoxLayout())
+
         self.progress_val = 0
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.progress_update)
-        
+        self.timer.timeout.connect(self.progress_update)   
+        self.dataset_table.setStyleSheet(self.dataset_table.styleSheet())
 
         self.upload_dataset_button.clicked.connect(self.load_csv_to_table)
         self.upload_dataset_button.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.dataset_page))
@@ -96,7 +99,9 @@ class MainApp(QMainWindow, Ui_MainWindow):
             if len(entered_otp) == 6 and entered_otp.isdigit():
                 if str(self.generated_otp) == entered_otp:
                     QMessageBox.information(self, "Verified", "OTP verified successfully!")
+                    self.current_user = self.username  # So match_fingerprint has correct input
                     self.stackedWidget.setCurrentWidget(self.Fingerprint_Authentication)
+
                 else:
                     QMessageBox.critical(self, "Invalid OTP", "Incorrect OTP. Please try again or click the resend button.")
                     self.OTP_here.clear()
@@ -123,47 +128,29 @@ class MainApp(QMainWindow, Ui_MainWindow):
             print("[ERROR] Exception during OTP sending:", str(e))
             QMessageBox.critical(self, "Email Error", str(e))
 
-
     def fingerprint_verification(self):
         try:
-            exe_path = os.path.abspath("fingerprint/capture/CaptureFingerprint/x64/Debug/CaptureFingerprint.exe")
-            match_script = os.path.abspath("fingerprint/match template.py")
-            fingerprint_file = os.path.abspath("fingerprint/fingerprints/")
+            if match_fingerprint(self.username):
+                print("AUTH_SUCCESS")
+                self.fp_message_label.setStyleSheet("color: green;")
+                self.fp_message_label.setText("Biometric Authentication Successful :)")
 
-            # Run the capture executable
-            subprocess.run([exe_path, self.username + "_live"], check=True)
-
-            # Check if the live fingerprint file exists
-            if not os.path.exists(fingerprint_file):
-                raise Exception("Live fingerprint file not found.")
-
-            # Run the matching script
-            result = subprocess.run(
-                [sys.executable, match_script, self.username],
-                capture_output=True, text=True
-            )
-
-            output = result.stdout.strip()
-            print("[DEBUG] Matcher Output:\n", output)
-
-            if "AUTH_SUCCESS" in output:
-                self.fp_message_label.setText("Success", f"User '{self.username}' authenticated successfully.")
-                self.root.destroy()
-                self.subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "result_gui.py")])
-                self.stackedWidget.setCurrentWidget(self.loading_page)
-                self.progress_val = 0
-                self.progress_bar.setValue(0)
-                self.timer.start(50)
-            elif "AUTH_FAIL" in output:
-                self.fp_message_label.setText("Authentication Failed", "Fingerprint does not match.")
+                QTimer.singleShot(1500, self.start_loading_screen)
             else:
-                self.fp_message_label.setText("Matcher Error", output)
-            
-
+                print("AUTH_FAIL")
+                self.fp_message_label.setStyleSheet("color: red;")
+                self.fp_message_label.setText("Biometric Authentication Unsuccessful :(")
         except Exception as e:
-            QMessageBox.showerror("Fingerprint Error", str(e))
-       
+            print("ERROR during fingerprint verification:", str(e))
+            self.fp_message_label.setStyleSheet("color: red;")
+            self.fp_message_label.setText("Error during fingerprint verification. Please try again.")
     
+    def start_loading_screen(self):
+        self.stackedWidget.setCurrentWidget(self.loading_page)
+        self.progress_val = 0
+        self.progress_bar.setValue(0)
+        self.timer.start(30)  # This starts the progress bar update every 30 ms
+
     def progress_update(self):
         self.progress_val += 1
         self.progress_bar.setValue(self.progress_val)
@@ -171,7 +158,6 @@ class MainApp(QMainWindow, Ui_MainWindow):
         if self.progress_val > 100:
             self.timer.stop()
             self.stackedWidget.setCurrentWidget(self.selection_page)
-
 
     def load_csv_to_table(self):
         file_name = r"data\processed_dataset.csv"
@@ -193,7 +179,6 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.run_prediction()
         except Exception as e:
             print(f"Failed to load file: {e}")
-
 
     def show_svm_model(self):
         df = pd.read_csv(r"data\processed_dataset.csv")

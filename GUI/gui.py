@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.credentials_label.setGeometry(QtCore.QRect(200, 350, 601, 81))
         font = QtGui.QFont()
         font.setFamily("Sitka Heading")
-        font.setPointSize(24)
+        font.setPointSize(22)
         font.setBold(True)
         font.setWeight(75)
         self.credentials_label.setFont(font)
@@ -50,8 +50,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("MS PGothic")
         font.setPointSize(18)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setBold(False)
+        font.setWeight(50)
         self.Username_label.setFont(font)
         self.Username_label.setStyleSheet("background:transparent;\n"
 "color: rgb(255, 255, 255);")
@@ -61,8 +61,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("MS PGothic")
         font.setPointSize(18)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setBold(False)
+        font.setWeight(50)
         self.password_label.setFont(font)
         self.password_label.setStyleSheet("background:transparent;\n"
 "color: rgb(255, 255, 255);")
@@ -90,8 +90,13 @@ class Ui_MainWindow(object):
         font.setBold(False)
         font.setWeight(50)
         self.signIn_button.setFont(font)
-        self.signIn_button.setStyleSheet("background: rgb(46, 173, 236);\n"
-"color: rgb(0, 0, 0);")
+        self.signIn_button.setStyleSheet("QPushButton{\n"
+"background:  rgb(46, 173, 236);\n"
+"color: rgb(0, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"background: rgb(0, 218, 0);\n"
+"}")
         self.signIn_button.setObjectName("signIn_button")
         self.showPassword_checkbox = QtWidgets.QCheckBox(self.signIn_page)
         self.showPassword_checkbox.setGeometry(QtCore.QRect(850, 520, 91, 41))
@@ -207,22 +212,23 @@ class Ui_MainWindow(object):
         self.Fingerprint_Authentication = QtWidgets.QWidget()
         self.Fingerprint_Authentication.setObjectName("Fingerprint_Authentication")
         self.fingerprint_authentication = QtWidgets.QLabel(self.Fingerprint_Authentication)
-        self.fingerprint_authentication.setGeometry(QtCore.QRect(160, 170, 841, 251))
+        self.fingerprint_authentication.setGeometry(QtCore.QRect(150, 150, 741, 201))
         font = QtGui.QFont()
         font.setFamily("Perpetua")
-        font.setPointSize(27)
+        font.setPointSize(25)
         font.setBold(True)
         font.setWeight(75)
         self.fingerprint_authentication.setFont(font)
         self.fingerprint_authentication.setStyleSheet("background: transparent;\n"
 "color: white;")
+        self.fingerprint_authentication.setAlignment(QtCore.Qt.AlignCenter)
         self.fingerprint_authentication.setWordWrap(True)
         self.fingerprint_authentication.setObjectName("fingerprint_authentication")
         self.fp_message_label = QtWidgets.QLineEdit(self.Fingerprint_Authentication)
-        self.fp_message_label.setGeometry(QtCore.QRect(160, 470, 711, 71))
+        self.fp_message_label.setGeometry(QtCore.QRect(140, 510, 711, 81))
         font = QtGui.QFont()
         font.setFamily("Mongolian Baiti")
-        font.setPointSize(14)
+        font.setPointSize(15)
         font.setBold(True)
         font.setWeight(75)
         self.fp_message_label.setFont(font)
@@ -233,6 +239,23 @@ class Ui_MainWindow(object):
         self.fp_message_label.setText("")
         self.fp_message_label.setReadOnly(True)
         self.fp_message_label.setObjectName("fp_message_label")
+        self.scan_fp_button = QtWidgets.QPushButton(self.Fingerprint_Authentication)
+        self.scan_fp_button.setGeometry(QtCore.QRect(390, 380, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("NSimSun")
+        font.setPointSize(13)
+        font.setBold(True)
+        font.setWeight(75)
+        self.scan_fp_button.setFont(font)
+        self.scan_fp_button.setStyleSheet("QPushButton{\n"
+"background: rgb(249, 175, 46);\n"
+"border-radius: 2px;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background: rgb(0, 218, 0);\n"
+"}\n"
+"")
+        self.scan_fp_button.setObjectName("scan_fp_button")
         self.stackedWidget.addWidget(self.Fingerprint_Authentication)
         self.loading_page = QtWidgets.QWidget()
         self.loading_page.setObjectName("loading_page")
@@ -289,9 +312,13 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.upload_dataset_button.setFont(font)
-        self.upload_dataset_button.setStyleSheet("background: rgb(85, 255, 255);\n"
-"\n"
-"color: rgb(0, 0, 0);")
+        self.upload_dataset_button.setStyleSheet("QPushButton{\n"
+"background: rgb(85, 255, 255);\n"
+"color: rgb(0, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"background: rgb(0, 218, 0);\n"
+"}")
         self.upload_dataset_button.setObjectName("upload_dataset_button")
         self.new_data_button = QtWidgets.QPushButton(self.selection_page)
         self.new_data_button.setGeometry(QtCore.QRect(220, 530, 261, 71))
@@ -301,9 +328,13 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.new_data_button.setFont(font)
-        self.new_data_button.setStyleSheet("background: rgb(85, 255, 255);\n"
-"\n"
-"color: rgb(0, 0, 0);")
+        self.new_data_button.setStyleSheet("QPushButton{\n"
+"background: rgb(85, 255, 255);\n"
+"color: rgb(0, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"background: rgb(0, 218, 0);\n"
+"}")
         self.new_data_button.setObjectName("new_data_button")
         self.stackedWidget.addWidget(self.selection_page)
         self.dataset_page = QtWidgets.QWidget()
@@ -415,8 +446,13 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.show_chart_button.setFont(font)
-        self.show_chart_button.setStyleSheet("background: rgb(255, 169, 49);\n"
-"color: rgb(0, 0, 0);")
+        self.show_chart_button.setStyleSheet("QPushButton{\n"
+"background: rgb(255, 169, 49);\n"
+"color: rgb(0, 0, 0);\n"
+"}\n"
+"QPushButton:hover{\n"
+"background: rgb(0, 218, 0);\n"
+"}")
         self.show_chart_button.setObjectName("show_chart_button")
         self.back_button = QtWidgets.QPushButton(self.dataset_page)
         self.back_button.setGeometry(QtCore.QRect(930, 690, 111, 31))
@@ -660,7 +696,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuEHR_System.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -679,8 +715,8 @@ class Ui_MainWindow(object):
         self.otp_label.setText(_translate("MainWindow", "OTP Code"))
         self.verify_otp_button.setText(_translate("MainWindow", "Verify"))
         self.fingerprint_authentication.setText(_translate("MainWindow", "Final Verification Step!\n"
-"\n"
-"Scan your fingerprint on the scanner."))
+"Click the button to scan your fingerprint on the scanner."))
+        self.scan_fp_button.setText(_translate("MainWindow", "Scan Fingerprint"))
         self.loading_label.setText(_translate("MainWindow", "Loading....."))
         self.title.setText(_translate("MainWindow", "EHR Insider Threat Detection System"))
         self.selection_label.setText(_translate("MainWindow", "Choose your preferred method to detect insider threats in Electronic Health Record (EHR) access:"))

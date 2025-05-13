@@ -44,7 +44,7 @@
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="signIn_page">
      <widget class="QLabel" name="credentials_label">
@@ -59,7 +59,7 @@
       <property name="font">
        <font>
         <family>Sitka Heading</family>
-        <pointsize>24</pointsize>
+        <pointsize>22</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -89,8 +89,8 @@ color: rgb(255, 255, 255);
        <font>
         <family>MS PGothic</family>
         <pointsize>18</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
@@ -114,8 +114,8 @@ color: rgb(255, 255, 255);</string>
        <font>
         <family>MS PGothic</family>
         <pointsize>18</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
@@ -189,8 +189,13 @@ color: rgb(255, 255, 255);</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgb(46, 173, 236);
-color: rgb(0, 0, 0);</string>
+       <string notr="true">QPushButton{
+background:  rgb(46, 173, 236);
+color: rgb(0, 0, 0);
+}
+QPushButton:hover{
+background: rgb(0, 218, 0);
+}</string>
       </property>
       <property name="text">
        <string>Sign in</string>
@@ -434,16 +439,16 @@ background: rgb(72, 207, 30);
      <widget class="QLabel" name="fingerprint_authentication">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>170</y>
-        <width>841</width>
-        <height>251</height>
+        <x>150</x>
+        <y>150</y>
+        <width>741</width>
+        <height>201</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Perpetua</family>
-        <pointsize>27</pointsize>
+        <pointsize>25</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -454,8 +459,10 @@ color: white;</string>
       </property>
       <property name="text">
        <string>Final Verification Step!
-
-Scan your fingerprint on the scanner.</string>
+Click the button to scan your fingerprint on the scanner.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -464,16 +471,16 @@ Scan your fingerprint on the scanner.</string>
      <widget class="QLineEdit" name="fp_message_label">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>470</y>
+        <x>140</x>
+        <y>510</y>
         <width>711</width>
-        <height>71</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Mongolian Baiti</family>
-        <pointsize>14</pointsize>
+        <pointsize>15</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -491,6 +498,37 @@ color: white;
       </property>
       <property name="readOnly">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="scan_fp_button">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>380</y>
+        <width>241</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>NSimSun</family>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background: rgb(249, 175, 46);
+border-radius: 2px;
+}
+QPushButton:hover{
+background: rgb(0, 218, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Scan Fingerprint</string>
       </property>
      </widget>
     </widget>
@@ -614,9 +652,13 @@ color: rgb(255, 255, 255);
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgb(85, 255, 255);
-
-color: rgb(0, 0, 0);</string>
+       <string notr="true">QPushButton{
+background: rgb(85, 255, 255);
+color: rgb(0, 0, 0);
+}
+QPushButton:hover{
+background: rgb(0, 218, 0);
+}</string>
       </property>
       <property name="text">
        <string>Upload DataSet</string>
@@ -640,9 +682,13 @@ color: rgb(0, 0, 0);</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgb(85, 255, 255);
-
-color: rgb(0, 0, 0);</string>
+       <string notr="true">QPushButton{
+background: rgb(85, 255, 255);
+color: rgb(0, 0, 0);
+}
+QPushButton:hover{
+background: rgb(0, 218, 0);
+}</string>
       </property>
       <property name="text">
        <string>Single Record</string>
@@ -860,8 +906,13 @@ background:rgb(0, 218, 0);</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgb(255, 169, 49);
-color: rgb(0, 0, 0);</string>
+       <string notr="true">QPushButton{
+background: rgb(255, 169, 49);
+color: rgb(0, 0, 0);
+}
+QPushButton:hover{
+background: rgb(0, 218, 0);
+}</string>
       </property>
       <property name="text">
        <string>Display Graph</string>

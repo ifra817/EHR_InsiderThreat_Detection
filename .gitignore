@@ -21,6 +21,7 @@ dist/
 *.sqlite3
 
 # IDEs and editors
+.vs/
 .vscode/
 .idea/
 *.swp

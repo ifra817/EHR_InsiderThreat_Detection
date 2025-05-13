@@ -1,58 +1,68 @@
 # store_template.py
 import os
 import sys
-import json
 import numpy as np
 import mysql.connector
 from datetime import datetime
-from cryptography.fernet import Fernet
 from match_utils import preprocess_fingerprint, extract_minutiae
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(PROJECT_ROOT)
+
+from Database.db_connect import get_connection  # ✅ Use your existing database connector
 
 IMG_WIDTH = 260
 IMG_HEIGHT = 300
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # directory of the current file
-FINGERPRINT_DIR = os.path.join(BASE_DIR, "fingerprints")
-DB_CONFIG_PATH = os.path.join(BASE_DIR, "config", "db_config.json")
-SECRET_KEY_PATH = os.path.join(BASE_DIR, "config", "secret.key")
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FINGERPRINT_DIR = os.path.join(BASE_DIR, "fingerprints")
+
+# ---------- Step 1: Load fingerprint file ----------
 username = sys.argv[1]
 path = os.path.join(FINGERPRINT_DIR, f"{username}.dat")
 
 with open(path, 'rb') as f:
     raw = f.read()
+
 if len(raw) != IMG_WIDTH * IMG_HEIGHT:
     raise ValueError("Invalid image size.")
 
 img = np.frombuffer(raw, dtype=np.uint8).reshape((IMG_HEIGHT, IMG_WIDTH))
-skeleton = preprocess_fingerprint(img)
-minutiae = extract_minutiae(skeleton)
 
-# Serialize and encrypt
-data_json = json.dumps(minutiae)
-with open(SECRET_KEY_PATH, 'rb') as f:
-    key = f.read()
-fernet = Fernet(key)
-encrypted = fernet.encrypt(data_json.encode())
+# You can add this later after testing core storage works
+# skeleton = preprocess_fingerprint(img)
+# minutiae = extract_minutiae(skeleton)
+# data_json = json.dumps(minutiae)
 
-# Save to DB
-with open(DB_CONFIG_PATH, 'r') as f:
-    db_config = json.load(f)
+# ---------- Step 2: Save to Database ----------
+try:
+    conn = get_connection()
+    cursor = conn.cursor()
 
-conn = mysql.connector.connect(**db_config)
-cursor = conn.cursor()
-cursor.execute("SELECT id FROM users WHERE username = %s", (username,))
-result = cursor.fetchone()
-if not result:
-    raise Exception("User not found")
-user_id = result[0]
+    # Get user_id using email (username is email in your case)
+    cursor.execute("SELECT user_id FROM Users WHERE email = %s", (username,))
+    result = cursor.fetchone()
 
-cursor.execute("""
-    INSERT INTO biometric_data (user_id, type, data)
-    VALUES (%s, %s, %s)
-""", (user_id, 'finger', encrypted))
+    if not result:
+        raise Exception("❌ User not found in database")
 
-conn.commit()
-cursor.close()
-conn.close()
+    user_id = result[0]
 
-print(f"[INFO] Fingerprint template stored for user: {username}")
+    # Store the fingerprint
+    cursor.execute("""
+        INSERT INTO Fingerprints (user_id, fingerprint_data)
+        VALUES (%s, %s)
+    """, (user_id, img.tobytes()))
+
+    conn.commit()
+    print(f"✅ Fingerprint template stored for user ID: {user_id}")
+
+except mysql.connector.Error as db_err:
+    print(f"❌ Database Error: {db_err}")
+
+except Exception as e:
+    print(f"❌ Error: {e}")
+
+finally:
+    if conn.is_connected():
+        cursor.close()
+        conn.close()
