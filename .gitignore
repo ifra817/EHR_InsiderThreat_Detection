@@ -26,10 +26,20 @@ dist/
 .idea/
 *.swp
 *~
-
-# Jupyter and IPython
-.ipynb_checkpoints/
-*.ipynb
+# Visual Studio
+.vs/
+*.suo
+*.VC.db
+*.VC.opendb
+*.ipch/
+*.tlog/
+*.pdb
+*.ilk
+*.obj
+*.exe
+*.user
+*.vcxproj.*
+*.sln
 
 # OS generated files
 .DS_Store
@@ -43,3 +53,8 @@ htmlcov/
 
 # Other
 *.bak
+
+# Debug/Build folders
+x64/Debug/
+Debug/
+fingerprint/fingerprints/
