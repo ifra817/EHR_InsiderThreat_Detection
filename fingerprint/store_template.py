@@ -2,7 +2,7 @@
 import os
 import sys
 import numpy as np
-import mysql.connector
+import pymysql
 from datetime import datetime
 from match_utils import preprocess_fingerprint, extract_minutiae
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -56,13 +56,13 @@ try:
     conn.commit()
     print(f"✅ Fingerprint template stored for user ID: {user_id}")
 
-except mysql.connector.Error as db_err:
+except pymysql.MySQLError as db_err:
     print(f"❌ Database Error: {db_err}")
 
 except Exception as e:
     print(f"❌ Error: {e}")
 
 finally:
-    if conn.is_connected():
+    if conn and conn.open:
         cursor.close()
         conn.close()

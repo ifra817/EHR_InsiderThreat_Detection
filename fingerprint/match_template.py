@@ -66,7 +66,7 @@ def match_fingerprint(username: str) -> bool:
             return False
 
         conn = get_connection()
-        cursor = conn.cursor(buffered=True)
+        cursor = conn.cursor()
 
 
         cursor.execute("""
@@ -81,7 +81,7 @@ def match_fingerprint(username: str) -> bool:
             print("ERROR: No stored fingerprint.")
             return False
 
-        stored_img = np.frombuffer(result[0], dtype=np.uint8).reshape((IMG_HEIGHT, IMG_WIDTH))
+        stored_img = np.frombuffer(result['fingerprint_data'], dtype=np.uint8).reshape((IMG_HEIGHT, IMG_WIDTH))
         stored_skeleton = preprocess_fingerprint(stored_img)
         stored_minutiae = extract_minutiae(stored_skeleton)
 

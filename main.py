@@ -60,7 +60,9 @@ class MainApp(QMainWindow, Ui_MainWindow):
             return
 
         # Connect to DB and validate credentials
+        
         conn = get_connection()
+        print("trying db conn")
         if conn:
             try:
                 cursor = conn.cursor()

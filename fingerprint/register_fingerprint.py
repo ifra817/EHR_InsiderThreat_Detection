@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-from mysql.connector import Error
+import pymysql
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(PROJECT_ROOT)
@@ -35,7 +35,7 @@ try:
     result = cursor.fetchone()
 
     if result:
-        user_id = result[0]
+        user_id = result['user_id']
         print(f"✅ Existing user found with ID: {user_id}")
 
         # Check if fingerprint already exists
@@ -92,7 +92,7 @@ try:
         conn.commit()
         print("✅ New user and fingerprint registered successfully.")
 
-except Error as db_err:
+except pymysql.MySQLError as db_err:
     print(f"❌ Database Error: {db_err}")
     conn.rollback()
 except Exception as e:

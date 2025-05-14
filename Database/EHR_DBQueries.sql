@@ -28,4 +28,7 @@ CREATE TABLE Login_Logs (
     user_agent VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE SET NULL
 );
+select * from fingerprints;
+DESC Fingerprints;
+desc users;
 

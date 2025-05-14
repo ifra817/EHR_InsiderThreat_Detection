@@ -44,7 +44,7 @@
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="signIn_page">
      <widget class="QLabel" name="credentials_label">
