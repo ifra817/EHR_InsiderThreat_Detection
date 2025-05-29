@@ -24,7 +24,7 @@ def capture_fingerprint_live(username: str) -> str:
     Captures fingerprint via scanner and returns the path to the saved .dat file.
     """
     FINGERPRINT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "fingerprints"))
-    EXE_PATH = os.path.abspath("C:/Users/Dell/Documents/My Projects/EHR_InsiderThreat_Detection/fingerprint/capture/CaptureFingerprint/x64/Debug/CaptureFingerprint.exe")
+    EXE_PATH = os.path.join(FINGERPRINT_DIR, "capture", "CaptureFingerprint", "x64", "Debug", "CaptureFingerprint.exe")
     fp_path = os.path.join(FINGERPRINT_DIR, f"{username}.dat")
     if os.path.exists(fp_path):
         os.remove(fp_path)

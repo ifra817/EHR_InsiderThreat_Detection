@@ -16,9 +16,17 @@ email = input("\nEnter email: ").strip()
 password = input("Enter password: ").strip()
 
 # === [Step 2: Setup Paths] ===
-EXE_PATH = os.path.abspath("C:/Users/Dell/Documents/My Projects/EHR_InsiderThreat_Detection/fingerprint/capture/CaptureFingerprint/x64/Debug/CaptureFingerprint.exe")
-STORE_SCRIPT = os.path.abspath("C:/Users/Dell/Documents/My Projects/EHR_InsiderThreat_Detection/fingerprint/store_template.py")
-FP_DIR = os.path.abspath("C:/Users/Dell/Documents/My Projects/EHR_InsiderThreat_Detection/fingerprint/fingerprints")
+EXE_PATH = os.path.join(
+    PROJECT_ROOT,
+    "fingerprint",
+    "capture",
+    "CaptureFingerprint",
+    "x64",
+    "Debug",
+    "CaptureFingerprint.exe"
+)
+STORE_SCRIPT = os.path.join(PROJECT_ROOT, "fingerprint","store_template.py")
+FP_DIR = os.path.join(PROJECT_ROOT, "fingerprint", "fingerprints")
 fp_path = os.path.join(FP_DIR, f"{email}.dat")
 
 # === [Step 3: Connect to DB] ===

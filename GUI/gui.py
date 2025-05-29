@@ -9,7 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import os
 
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+bg_image_path = os.path.join(PROJECT_ROOT, "GUI", "bg_image.jpg").replace("\\", "/")
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -25,8 +28,8 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.stackedWidget.setFont(font)
         self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.stackedWidget.setStyleSheet("background:url(\"C:/Users/Dell/Documents/My Projects/EHR_InsiderThreat_Detection/GUI/bg_image.jpg\");\n"
-"")
+        self.stackedWidget.setStyleSheet(f'background-image: url("{bg_image_path}");')
+
         self.stackedWidget.setFrameShape(QtWidgets.QFrame.VLine)
         self.stackedWidget.setFrameShadow(QtWidgets.QFrame.Raised)
         self.stackedWidget.setObjectName("stackedWidget")
