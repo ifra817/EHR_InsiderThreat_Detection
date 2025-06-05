@@ -23,15 +23,22 @@ def capture_fingerprint_live(username: str) -> str:
     """
     Captures fingerprint via scanner and returns the path to the saved .dat file.
     """
-    FINGERPRINT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "fingerprints"))
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # goes up from /fingerprint
+    FINGERPRINT_DIR = os.path.join(BASE_DIR, "fingerprint")
+    FINGERPRINTS_DIR = os.path.join(FINGERPRINT_DIR, "fingerprints")
     EXE_PATH = os.path.join(FINGERPRINT_DIR, "capture", "CaptureFingerprint", "x64", "Debug", "CaptureFingerprint.exe")
-    fp_path = os.path.join(FINGERPRINT_DIR, f"{username}.dat")
+    print("[DEBUG] EXE path:", EXE_PATH)
+    print("[DEBUG] EXE path:", EXE_PATH)
+
+    fp_path = os.path.join(FINGERPRINTS_DIR, f"{username}.dat")
     if os.path.exists(fp_path):
         os.remove(fp_path)
-
     print("🔒 Activating fingerprint scanner...")
     try:
-        subprocess.run([EXE_PATH, username], check=True)
+        print("[DEBUG] Does EXE exist?", os.path.exists(EXE_PATH))
+        print("[DEBUG] Is EXE a file?", os.path.isfile(EXE_PATH))
+        print("[DEBUG] Current working directory:", os.getcwd())
+        subprocess.run([EXE_PATH, username], shell=True, check=True)
 
         if not os.path.exists(fp_path):
             raise FileNotFoundError(f"❌ Fingerprint file not found: {fp_path}")
