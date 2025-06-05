@@ -57,4 +57,5 @@ htmlcov/
 # Debug/Build folders
 x64/Debug/
 Debug/
-fingerprint/fingerprints/*
+fingerprint/fingerprints/** 
+!fingerprint/fingerprints/.gitkeep
