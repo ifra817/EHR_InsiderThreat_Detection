@@ -92,12 +92,11 @@ def match_fingerprint(username: str) -> bool:
         stored_skeleton = preprocess_fingerprint(stored_img)
         stored_minutiae = extract_minutiae(stored_skeleton)
 
-
         matches, _, _ = compare_minutiae(live_minutiae, stored_minutiae)
         ratio = matches / max(len(stored_minutiae), 1)
         print(f"[DEBUG] Match ratio: {ratio:.3f}")
 
-        return ratio > 0.65
+        return ratio > 0.5
 
     except Exception as e:
         print("UNEXPECTED ERROR:", str(e))

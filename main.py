@@ -16,6 +16,7 @@ from email_utils import generate_otp, send_otp_email
 from fingerprint.match_template import match_fingerprint
 
 class MainApp(QMainWindow, Ui_MainWindow):
+    
     def __init__(self):
         super().__init__()
         self.setupUi(self)
