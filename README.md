@@ -166,7 +166,7 @@ If you do not have a fingerprint scanner:
   ```
   with:
   ```python
-  self.stackedWidget.setCurrentWidget(self.Loading_page)
+  QTimer.singleShot(1500, self.start_loading_screen)
   ```
   
 ### 4. Start the Application
@@ -192,6 +192,7 @@ scipy==1.14.1
 opencv-python==4.11.0.86
 scikit-image==0.25.2
 pymysql==1.1.1
+cryptography
 ```
 
 ---

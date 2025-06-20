@@ -103,8 +103,8 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 if str(self.generated_otp) == entered_otp:
                     QMessageBox.information(self, "Verified", "OTP verified successfully!")
                     self.current_user = self.username  # So match_fingerprint has correct input
-                    self.stackedWidget.setCurrentWidget(self.Fingerprint_Authentication)
-
+                    #self.stackedWidget.setCurrentWidget(self.Fingerprint_Authentication)
+                    QTimer.singleShot(1500, self.start_loading_screen)
                 else:
                     QMessageBox.critical(self, "Invalid OTP", "Incorrect OTP. Please try again or click the resend button.")
                     self.OTP_here.clear()
